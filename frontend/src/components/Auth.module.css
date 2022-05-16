@@ -1,0 +1,16 @@
+.auth {
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth_input {
+  margin: 10px;
+}
+
+.auth_toggle {
+  margin: 10px;
+  cursor: pointer;
+}
