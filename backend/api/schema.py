@@ -32,7 +32,7 @@ class CreateUserMutation(relay.ClientIDMutation):
   user = graphene.Field(UserNode)
 
   def mutate_and_get_payload(root, info, **input):
-    user = User(username=input.get('username'), email=inpug.get('email'))
+    user = User(username=input.get('username'), email=input.get('email'))
     user.set_password(input.get('password'))
     user.save()
 
@@ -59,7 +59,6 @@ class ProfileUpdateMutation(relay.ClientIDMutation):
   @login_required
   def mutate_and_get_payload(root, info, **input):
     profile = Profile.objects.get(id=from_global_id(input.get('id'))[1])
-    print(profile)
 
     if input.get('followings') is not None:
       followings_set = []
@@ -68,8 +67,8 @@ class ProfileUpdateMutation(relay.ClientIDMutation):
         followings_object = User.objects.get(id=followings_id)
         followings_set.append(followings_object)
       
-      profile.folllowings.set(followings_set)
-    profile.seve()
+      profile.followings.set(followings_set)
+    profile.save()
 
     return ProfileUpdateMutation(profile=profile)
 
@@ -92,12 +91,8 @@ class Query(graphene.ObjectType):
   
   @login_required
   def resolve_all_users(self, info, **kwargs):
-    return User.object.all()
+    return User.objects.all()
 
   @login_required
   def resolve_app_profiles(self, info, **kwargs):
     return Profile.objects.all()
-  
-
-
-
