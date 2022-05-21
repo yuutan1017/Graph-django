@@ -133,6 +133,7 @@ const MainPage = () => {
                     key={node.userProfile.id}
                   >
                     {node.userProfile.username}
+                    {console.log(node)}
                   </li>
                 )
               )}
